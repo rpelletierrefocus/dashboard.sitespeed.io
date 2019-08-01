@@ -1,4 +1,5 @@
 {  
+  "extends": "/sitespeed.io/secrets.json",
   "browsertime": {    
     "visualElements": true,
     "iterations": 3,
