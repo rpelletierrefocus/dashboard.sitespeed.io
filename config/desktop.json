@@ -1,6 +1,10 @@
-{  
+{
   "extends": "/config/secrets.json",
-  "browsertime": {    
+  "browsertime": {
+    "connectivity": {
+      "engine": "throttle",
+      "profile": "cable"
+    },
     "visualElements": true,
     "iterations": 3,
     "browser": "chrome",
