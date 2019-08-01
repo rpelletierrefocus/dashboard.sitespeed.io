@@ -31,7 +31,7 @@ for script in $SERVER/desktop/scripts/*.js ; do
     docker run $DOCKER_SETUP $DOCKER_CONTAINER $NAMESPACE $CONFIG/desktop.json --multi --spa $script
     control
 done
-
+: <<'END'
 for url in $SERVER/emulatedMobile/urls/*.txt ; do
     [ -e "$url" ] || continue
     NAMESPACE="--graphite.namespace sitespeed_io.$(basename ${url%%.*})"
@@ -45,7 +45,7 @@ for script in $SERVER/emulatedMobile/scripts/*.js ; do
     docker run $DOCKER_SETUP $DOCKER_CONTAINER $NAMESPACE $CONFIG/emulatedMobile.json --multi --spa $script
     control
 done
-
+END
 # We run WebPageReplay just to verify that it works
 for url in $SERVER/replay/urls/*.txt ; do
     [ -e "$url" ] || continue
