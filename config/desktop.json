@@ -1,13 +1,5 @@
-{
-  "graphite": {
-    "host": "my.graphite.host",
-    "namespace": "sitespeed_io.desktopFirstView"
-  },
-  "browsertime": {
-    "connectivity": {
-      "engine": "throttle",
-      "profile": "cable"
-    },
+{  
+  "browsertime": {    
     "visualElements": true,
     "iterations": 3,
     "browser": "chrome",
