@@ -6,7 +6,7 @@
 
 DOCKER_CONTAINER=sitespeedio/sitespeed.io-autobuild:latest
 DOCKER_SETUP="--cap-add=NET_ADMIN  --shm-size=2g --rm -v /config:/config -v "$(pwd)":/sitespeed.io -v /etc/localtime:/etc/localtime:ro -e MAX_OLD_SPACE_SIZE=3072 "
-CONFIG="--config /config"
+CONFIG="--config /sitespeed.io"
 BROWSERS=(chrome firefox)
 
 # We loop through all directories we have
@@ -19,14 +19,11 @@ for file in $SERVER/desktop/urls/*.txt ; do
   for browser in "${BROWSERS[@]}"
     do
     while read url; do
-      echo $browser
-      echo $url
       # Note: If you use dots in your name you need to replace them before sending to Graphite
       # GRAPHITE_NAMESPACE=${GRAPHITE_NAMESPACE//[-.]/_}
       NAMESPACE="--graphite.namespace sitespeed_io.$(basename ${url%%.*})"
-      docker run $DOCKER_SETUP $DOCKER_CONTAINER $NAMESPACE -b $browser $url --graphite.host 192.168.0.187
-
-      #sudo docker run --rm -v "$(pwd)":/sitespeed.io sitespeedio/sitespeed.io $url --browser $browser --graphite.host 192.168.0.187
+      docker run $DOCKER_SETUP $DOCKER_CONTAINER $NAMESPACE $CONFIG/config/desktop.json -b $browser $url --graphite.host 192.168.0.187
+      #docker run --rm -v "$(pwd)":/sitespeed.io sitespeedio/sitespeed.io $url --browser $browser --graphite.host 192.168.0.187
       control
     done <$file
     done
