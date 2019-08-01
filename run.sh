@@ -28,6 +28,13 @@ for file in $SERVER/desktop/urls/*.txt ; do
     done
 done
 
+for script in $SERVER/desktop/scripts/*.js ; do
+    [ -e "$script" ] || continue
+    NAMESPACE="--graphite.namespace sitespeed_io.$(basename ${script%%.*})"
+    docker run $DOCKER_SETUP $DOCKER_CONTAINER $NAMESPACE $CONFIG/desktop.json --multi --spa $script
+    control
+done
+
 # Remove the current container so we fetch the latest autobuild the next time
 # If you run a stable version (as YOU should), you don't need to remove the container
 # docker system prune --all --volumes -f
