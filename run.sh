@@ -24,21 +24,21 @@ for url in $SERVER/desktop/urls/*.txt ; do
       control
     done
 done
-
+: <<'END'
 for script in $SERVER/desktop/scripts/*.js ; do
     [ -e "$script" ] || continue
     NAMESPACE="--graphite.namespace sitespeed_io.$(basename ${script%%.*})"
     docker run $DOCKER_SETUP $DOCKER_CONTAINER $NAMESPACE $CONFIG/desktop.json --multi --spa $script
     control
 done
-: <<'END'
+END
 for url in $SERVER/emulatedMobile/urls/*.txt ; do
     [ -e "$url" ] || continue
     NAMESPACE="--graphite.namespace sitespeed_io.$(basename ${url%%.*})"
     docker run $DOCKER_SETUP $DOCKER_CONTAINER $NAMESPACE $CONFIG/emulatedMobile.json $url
     control
 done
-
+: <<'END'
 for script in $SERVER/emulatedMobile/scripts/*.js ; do
     [ -e "$script" ] || continue
     NAMESPACE="--graphite.namespace sitespeed_io.$(basename ${script%%.*})"
