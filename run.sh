@@ -20,9 +20,8 @@ for url in $SERVER/desktop/urls/*.txt ; do
       # Note: If you use dots in your name you need to replace them before sending to Graphite
       # GRAPHITE_NAMESPACE=${GRAPHITE_NAMESPACE//[-.]/_}
       NAMESPACE="--graphite.namespace sitespeed_io.$(basename ${url%%.*})"
-      docker run $DOCKER_SETUP $DOCKER_CONTAINER $NAMESPACE $CONFIG/desktop.json -b $browser $url
-      sudo docker run --rm -v "$(pwd)":/sitespeed.io sitespeedio/sitespeed.io https://bangordailynews.com/ --graphite.host 192.168.0.187
-      sudo docker run --rm -v "$(pwd)":/sitespeed.io sitespeedio/sitespeed.io https://bdnnow.com/ --graphite.host 192.168.0.187
+      #docker run $DOCKER_SETUP $DOCKER_CONTAINER $NAMESPACE $CONFIG/desktop.json -b $browser $url
+      sudo docker run --rm -v "$(pwd)":/sitespeed.io sitespeedio/sitespeed.io $browser $url --graphite.host 192.168.0.187
       control
     done
 done
